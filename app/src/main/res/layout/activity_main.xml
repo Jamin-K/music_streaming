@@ -6,49 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:weightSum="10">
+    >
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2">
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1번구역">
+            android:text="재생목록"
+            android:textSize="35dp"
+            >
 
         </TextView>
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="7">
 
-        <TextView
+
+
+        <ScrollView
+            android:fillViewport="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="2번구역">
+            android:layout_height="550dp"
+            >
 
-        </TextView>
+            <ListView
+                android:id="@+id/playListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/list_card">
 
-    </LinearLayout>
+            </ListView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3번구역">
+        </ScrollView>
 
-        </TextView>
 
-    </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3번구역">
+
+            </TextView>
+
+
+
+
+
+
+
+
+
+
+
 
 </LinearLayout>
