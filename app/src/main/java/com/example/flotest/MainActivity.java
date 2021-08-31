@@ -2,18 +2,21 @@ package com.example.flotest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
+import android.view.View;
+import android.widget.ImageButton;
 import com.example.flotest.databinding.ActivityMainBinding;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    int song_state = 0; //0 = 일시정지 상태, 1= 재생상태
+    MediaPlayer mediaPlayer;
+    int pausePosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,42 @@ public class MainActivity extends AppCompatActivity {
 
          binding.playListView.setAdapter(listAdapter);
          binding.playListView.setClickable(true);
+
+
+        ImageButton forward_btn = (ImageButton) findViewById(R.id.foward_btn);
+        ImageButton play_pause_btn = (ImageButton) findViewById(R.id.play_btn);
+        ImageButton rewind_btn = (ImageButton) findViewById(R.id.back_btn);
+
+        play_pause_btn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(song_state == 0) {
+                    play_pause_btn.setImageResource(R.drawable.pause_btn);
+                    //재생 서술
+                    if(mediaPlayer == null){
+                        mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.goback);
+                        mediaPlayer.start();
+                    }
+                    else{
+                        mediaPlayer.seekTo(pausePosition);
+                        mediaPlayer.start();
+                    }
+
+                    song_state = 1;
+
+                }
+                else{
+                    play_pause_btn.setImageResource(R.drawable.play_btn);
+                    //일시정지 서술
+                    song_state = 0;
+                    mediaPlayer.pause();
+                    pausePosition = mediaPlayer.getCurrentPosition();
+                }
+
+            }
+        });
+
 
 
 
