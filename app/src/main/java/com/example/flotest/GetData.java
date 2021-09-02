@@ -4,6 +4,10 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,10 +21,21 @@ public class GetData extends AsyncTask<String, Void, String> {
     String errorString = null;
     private String ip = "14.44.6.129";
     private static String TAG = "flotest";
-    String mJsonString;
+    String title[];
+    String artist[];
+    String imgurl[];
 
-    public String getmJsonString(){
-        return this.mJsonString;
+
+    public String[] getTitle(){
+        return title;
+    }
+
+    public String[] getArtist(){
+        return artist;
+    }
+
+    public String[] getImgurl(){
+        return imgurl;
     }
 
     @Override
@@ -37,8 +52,28 @@ public class GetData extends AsyncTask<String, Void, String> {
         }
         else{
             Log.d(TAG, "song list call");
-            mJsonString = result;
-            System.out.println(result);
+            try{
+                JSONObject jsonObject = new JSONObject(result);
+                String data = jsonObject.getString("kjm");
+                JSONArray jsonArray = new JSONArray(data);
+                title = new String[jsonArray.length()];
+                artist = new String[jsonArray.length()];
+                imgurl = new String[jsonArray.length()];
+
+                for(int i = 0 ; i<jsonArray.length(); i++){
+                    JSONObject subObject = jsonArray.getJSONObject(i);
+                    title[i] = subObject.getString("title");
+                    artist[i] = subObject.getString("artist");
+                    imgurl[i] = subObject.getString("imgurl");
+                }
+
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+
+
+            //System.out.println(result);
         }
     }
 

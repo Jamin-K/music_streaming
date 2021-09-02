@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     int song_state = 0; //0 = 일시정지 상태, 1= 재생상태
     MediaPlayer mediaPlayer;
     int pausePosition;
+    String title[];
+    String artist[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +55,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         GetData task = new GetData();
+        System.out.println("----------------------------task 실행");
         task.execute();
+        title = task.getTitle(); //async 비동기 통신이라 코드 바로 넘어가는듯.  https://recipes4dev.tistory.com/174 참조
+        artist = task.getArtist();
 
 
 
 
         //추후 MusicList 클래스에서 서버, DB통신 간 데이터 얻어오는걸로
-        String title[] = {"바람기억", "고백", "좋니", "있잖아", "바라만본다", "슬픔활용법", "너랑나", "잔소리"};
-        String artist[] = {"나얼", "장범준", "윤종신", "IU", "MSG워너비", "김범수", "IU", "임슬옹(feet.IU)"};
+        //String title[] = {"바람기억", "고백", "좋니", "있잖아", "바라만본다", "슬픔활용법", "너랑나", "잔소리"};
+        //String artist[] = {"나얼", "장범준", "윤종신", "IU", "MSG워너비", "김범수", "IU", "임슬옹(feet.IU)"};
 
         ArrayList<MusicList> arrayList = new ArrayList<MusicList>();
 
